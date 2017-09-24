@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "425633198655",
+    "firebase_url": "https://northcrest-180911.firebaseio.com",
+    "project_id": "northcrest-180911",
+    "storage_bucket": "northcrest-180911.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425633198655:android:01e895695be01597",
+        "android_client_info": {
+          "package_name": "com.ananyagupta.northcrest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425633198655-bft0i43hacqoeafhl4pguosjcif9di34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ananyagupta.northcrest",
+            "certificate_hash": "8f88dca6564788688f50d59e3213e767a5116a28"
+          }
+        },
+        {
+          "client_id": "425633198655-5tgv2tq0h1hu88at42qsghggo0kmr7ep.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ananyagupta.northcrest",
+            "certificate_hash": "1bed56c83fde384720b8730884e70e737f1d95c8"
+          }
+        },
+        {
+          "client_id": "425633198655-8b7o7su47c6vl5eul3odqku9qi1r3uq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2iAZS8sBN6wd6MZ-5mNvnZnekTeWRWqQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425633198655-8b7o7su47c6vl5eul3odqku9qi1r3uq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

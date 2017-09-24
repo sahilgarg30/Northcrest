@@ -8,8 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
@@ -19,8 +19,9 @@
             android:padding="32dp"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimary"
-            android:textSize="50sp"
-            android:layout_weight="1.14" />
+            android:textSize="50sp" />
+
+
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -42,10 +43,11 @@
                     android:layout_width="match_parent"
                     android:padding="4dp"
                     android:layout_height="wrap_content">
-                    <EditText android:id="@+id/email_edittext"
+                    <EditText android:id="@+id/signup_email_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
+                        android:padding="16dp"
                         android:layout_marginBottom="8dp"
                         android:hint="Email" />
                 </android.support.design.widget.TextInputLayout>
@@ -55,48 +57,40 @@
                     android:padding="4dp"
                     card_view:passwordToggleEnabled="true"
                     android:layout_height="wrap_content">
-                    <EditText android:id="@+id/password_edittext"
+                    <EditText android:id="@+id/signup_password_edittext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
                         android:layout_marginBottom="8dp"
+                        android:padding="16dp"
                         android:hint="Password"/>
                 </android.support.design.widget.TextInputLayout>
 
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:padding="4dp"
+                    card_view:passwordToggleEnabled="true"
+                    android:layout_height="wrap_content">
+                    <EditText android:id="@+id/signup_confirmpassword_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:layout_marginBottom="8dp"
+                        android:padding="16dp"
+                        android:hint="Confirm Password"/>
+                </android.support.design.widget.TextInputLayout>
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/custom_signin_button"
+                    android:onClick="signupUser"
+                    android:id="@+id/custom_signup_button"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:padding="8dp"
+                    android:padding="16dp"
+                    android:layout_margin="8dp"
                     android:backgroundTint="@color/colorAccent"
-                    android:tag="custom_login_button"
-                    android:text="SIGN IN"
+                    android:text="SIGN UP"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
-
-
-                <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/google_login_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/google_plus_brand_color"
-                    android:drawableLeft="@drawable/ic_google_plus_white_36dp"
-                    android:drawableStart="@drawable/ic_google_plus_white_36dp"
-                    android:padding="8dp"
-                    android:tag="google_login_button"
-                    android:text="Sign in with Google"
-                    android:textColor="@color/white" />
-
-                <TextView android:id="@+id/link_signup"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:text="No Account yet? Click here."
-                    android:onClick="startSignUpActivity"
-                    android:gravity="center"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorAccent"/>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
