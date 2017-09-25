@@ -1,6 +1,7 @@
 package com.ananyagupta.northcrest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText mPasswordEt;
     private EditText mConfirmEt;
     private FirebaseAuth mAuth;
+    private SharedPreferences mSp;
+    private SharedPreferences.Editor mEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,9 @@ public class SignUpActivity extends AppCompatActivity {
         mPasswordEt = (EditText)findViewById(R.id.signup_password_edittext);
         mConfirmEt = (EditText)findViewById(R.id.signup_confirmpassword_edittext);
         mAuth = FirebaseAuth.getInstance();
+
+        mSp = getSharedPreferences("current_state",MODE_PRIVATE);
+        mEdit = mSp.edit();
     }
 
     @Override
@@ -78,7 +84,9 @@ public class SignUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(SignUpActivity.this,HomeActivity.class);
+                            mEdit.putInt("state",1);
+                            mEdit.apply();
+                            Intent intent = new Intent(SignUpActivity.this,UserDetailsActivity.class);
                             startActivity(intent);
                             Toast.makeText(SignUpActivity.this, "Sign Up successful", Toast.LENGTH_SHORT).show();
                             finish();

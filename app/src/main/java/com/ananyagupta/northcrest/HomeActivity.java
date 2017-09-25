@@ -1,6 +1,7 @@
 package com.ananyagupta.northcrest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,6 +37,8 @@ public class HomeActivity extends AppCompatActivity
     private MyProfileFragment mMyProfileFrag;
     private RewardsFragment mRewardsFrag;
     private SupportFragment mSupportFrag;
+    private SharedPreferences mSp;
+    private SharedPreferences.Editor mEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,9 @@ public class HomeActivity extends AppCompatActivity
         mFragTransaction = mFragManager.beginTransaction();
         mFragTransaction.add(R.id.homepage_frame,mMyProfileFrag);
         mFragTransaction.commit();
+
+        mSp = getSharedPreferences("current_state",MODE_PRIVATE);
+        mEdit = mSp.edit();
     }
     @Override
     protected void onStart() {
@@ -142,6 +148,8 @@ public class HomeActivity extends AppCompatActivity
             mFragTransaction.replace(R.id.homepage_frame,mSupportFrag);
             mFragTransaction.commit();
         } else if (id == R.id.nav_signOut) {
+            mEdit.putInt("state",0);
+            mEdit.apply();
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                     new ResultCallback<Status>() {
                         @Override

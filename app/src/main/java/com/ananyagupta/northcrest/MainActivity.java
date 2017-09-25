@@ -1,6 +1,7 @@
 package com.ananyagupta.northcrest;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText mEmailField;
     private EditText mPasswordField;
     private Button mEmailLoginBtn;
+    private SharedPreferences mSp;
+    private SharedPreferences.Editor mEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         mAuth = FirebaseAuth.getInstance();
+
+        mSp = getSharedPreferences("current_state",MODE_PRIVATE);
+        mEdit = mSp.edit();
+        int state = mSp.getInt("state",0);
+        Intent intent;
+        switch(state){
+            case 0 : break;
+            case 1 : intent = new Intent(MainActivity.this,UserDetailsActivity.class);
+                     startActivity(intent);
+                     finish();
+                     break;
+            case 2 :
+                     intent = new Intent(MainActivity.this, HomeActivity.class);
+                     startActivity(intent);
+                     finish();
+                     break;
+        }
         mAuthListener = new FirebaseAuth.AuthStateListener(){
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -132,9 +152,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                            Intent intent = new Intent(MainActivity.this,UserDetailsActivity.class);
                             startActivity(intent);
                             Toast.makeText(MainActivity.this, "Signed in with google!", Toast.LENGTH_SHORT).show();
+                            mEdit.putInt("state",1);
+                            mEdit.apply();
                             finish();
                         }
                     }
@@ -168,9 +190,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+                            mEdit.putInt("state",2);
+                            mEdit.apply();
                             Intent intent = new Intent(MainActivity.this,HomeActivity.class);
                             startActivity(intent);
                             Toast.makeText(MainActivity.this, "Signed in with email!", Toast.LENGTH_SHORT).show();
+                            finish();
 
                         } else {
                             // If sign in fails, display a message to the user.

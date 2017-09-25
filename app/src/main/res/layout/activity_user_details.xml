@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.ananyagupta.northcrest.UserDetailsActivity">
 
@@ -141,7 +142,7 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/save_button_detailsActivity"
-                    android:onClick="addOrJoinCommunity"
+                    android:onClick="startHomeActivity"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:padding="16dp"
