@@ -47,14 +47,6 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -63,7 +55,7 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        navigationView.getMenu().getItem(0).setChecked(true);
         mBalanceFrag = new BalanceFragment();
         mHistoryFrag =  new HistoryFragment();
         mMyProfileFrag = new MyProfileFragment();
@@ -84,7 +76,6 @@ public class HomeActivity extends AppCompatActivity
                 .build();
         mGoogleApiClient.connect();
         super.onStart();
-        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
@@ -113,6 +104,8 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent =  new Intent(HomeActivity.this,SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
