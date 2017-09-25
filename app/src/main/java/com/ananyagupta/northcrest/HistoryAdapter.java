@@ -20,7 +20,7 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return 0;
     }
 
     @Override

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:fillViewport="true"
     tools:context="com.ananyagupta.northcrest.MyProfileFragment"
     android:layout_height="match_parent">
     <RelativeLayout
@@ -101,10 +102,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:layout_marginBottom="8dp"
             android:textSize="16sp"
             android:text="rahul.singh@gmail.com"
             android:layout_below="@+id/textView9"
+            android:layout_alignLeft="@+id/textView9"
+            android:layout_alignStart="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:padding="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/textView10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp"
+            android:textSize="16sp"
+            android:text="9731456067"
+            android:layout_below="@+id/textView11"
             android:layout_alignLeft="@+id/textView9"
             android:layout_alignStart="@+id/textView9" />
     </RelativeLayout>
