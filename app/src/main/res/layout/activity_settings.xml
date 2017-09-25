@@ -25,7 +25,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/dp_settings_ib"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_below="@+id/textView16"

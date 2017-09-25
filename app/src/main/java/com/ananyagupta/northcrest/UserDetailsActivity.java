@@ -101,7 +101,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
                 "Cancel" };
         AlertDialog.Builder builder = new AlertDialog.Builder(UserDetailsActivity.this);
-        builder.setTitle("Add Photo!");
+        builder.setTitle("Add Profile Photo!").setIcon(R.drawable.ic_camera);
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
