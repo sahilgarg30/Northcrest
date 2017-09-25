@@ -1,6 +1,117 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ananyagupta.northcrest.SupportFragment">
-</FrameLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="About us" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorAccent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Founded in 1806, Bank of Patiala was the first bank established in India and over a period of time evolved into North Crest(NC). NC represents a sterling legacy of over 200 years. It is one of the oldest commercial bank in the Indian subcontinent, strengthening the nation’s trillion-dollar economy and serving the aspirations of its vast population. The Bank is India’s largest commercial Bank in terms of assets, deposits, branches, number of customers and employees, enjoying the continuing faith of millions of customers across the social spectrum."
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Contact Us" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorAccent"/>
+    <TextView
+        android:id="@+id/website_heading_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:text="Visit our website:"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp" />
+    <TextView
+        android:id="@+id/website_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:textColor="@color/link"
+        android:text="http://www.ncbanks.com"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:id="@+id/email_heading_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Email:"
+        android:clickable="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/email_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/link"
+        android:text="support@northcrest.in"
+        android:clickable="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:id="@+id/phone_heading_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Click here to call:"
+        android:clickable="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:id="@+id/phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/link"
+        android:text="080-246-2453"
+        android:clickable="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Address:\n16th Floor, Shantala Complex, near Central Mall, Vijaywada Area, Delhi - 06"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
+</LinearLayout>
+</ScrollView>
