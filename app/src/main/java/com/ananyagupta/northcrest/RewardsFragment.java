@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 public class RewardsFragment extends Fragment {
 
 
+    private HomeActivity mHomePageActivity;
+
     public RewardsFragment() {
         // Required empty public constructor
     }
@@ -24,6 +26,8 @@ public class RewardsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_rewards, container, false);
+        mHomePageActivity = (HomeActivity) getActivity();
+        mHomePageActivity.getSupportActionBar().setTitle("Rewards");
         return view;
     }
 

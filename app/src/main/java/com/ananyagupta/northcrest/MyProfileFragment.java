@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 public class MyProfileFragment extends Fragment {
 
 
+    private HomeActivity mHomePageActivity;
+
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -24,6 +26,8 @@ public class MyProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_my_profile, container, false);
+        mHomePageActivity = (HomeActivity) getActivity();
+        mHomePageActivity.getSupportActionBar().setTitle("My Profile");
         return view;
     }
 

@@ -6,4 +6,5 @@
     <color name="colorAccent">#FF6E40</color>
     <color name="google_plus_brand_color">#dc4e41</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.ActionMode;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -27,6 +29,13 @@ public class HomeActivity extends AppCompatActivity
 
     private GoogleApiClient mGoogleApiClient;
     private NavigationView navigationView;
+    private android.app.FragmentManager mFragManager;
+    private android.app.FragmentTransaction mFragTransaction;
+    private BalanceFragment mBalanceFrag;
+    private HistoryFragment mHistoryFrag;
+    private MyProfileFragment mMyProfileFrag;
+    private RewardsFragment mRewardsFrag;
+    private SupportFragment mSupportFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,16 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mBalanceFrag = new BalanceFragment();
+        mHistoryFrag =  new HistoryFragment();
+        mMyProfileFrag = new MyProfileFragment();
+        mRewardsFrag = new RewardsFragment();
+        mSupportFrag = new SupportFragment();
+        mFragManager = getFragmentManager();
+        mFragTransaction = mFragManager.beginTransaction();
+        mFragTransaction.add(R.id.homepage_frame,mMyProfileFrag);
+        mFragTransaction.commit();
     }
     @Override
     protected void onStart() {
@@ -110,14 +129,27 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_profile) {
             // Handle the camera action
+            mFragTransaction = mFragManager.beginTransaction();
+            mFragTransaction.replace(R.id.homepage_frame,mMyProfileFrag);
+            mFragTransaction.commit();
         } else if (id == R.id.nav_balance) {
+            mFragTransaction = mFragManager.beginTransaction();
+            mFragTransaction.replace(R.id.homepage_frame,mBalanceFrag);
+            mFragTransaction.commit();
 
         } else if (id == R.id.nav_history) {
-
+            mFragTransaction = mFragManager.beginTransaction();
+            mFragTransaction.replace(R.id.homepage_frame,mHistoryFrag);
+            mFragTransaction.commit();
         } else if (id == R.id.nav_rewards) {
+            mFragTransaction = mFragManager.beginTransaction();
+            mFragTransaction.replace(R.id.homepage_frame,mRewardsFrag);
+            mFragTransaction.commit();
 
         } else if (id == R.id.nav_support) {
-
+            mFragTransaction = mFragManager.beginTransaction();
+            mFragTransaction.replace(R.id.homepage_frame,mSupportFrag);
+            mFragTransaction.commit();
         } else if (id == R.id.nav_signOut) {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                     new ResultCallback<Status>() {

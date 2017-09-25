@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 public class BalanceFragment extends Fragment {
 
 
+    private HomeActivity mHomePageActivity;
+
     public BalanceFragment() {
         // Required empty public constructor
     }
@@ -24,6 +26,8 @@ public class BalanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view =  inflater.inflate(R.layout.fragment_balance, container, false);
+        mHomePageActivity = (HomeActivity) getActivity();
+        mHomePageActivity.getSupportActionBar().setTitle("Balance");
         return view;
     }
 

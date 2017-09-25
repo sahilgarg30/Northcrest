@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 public class SupportFragment extends Fragment {
 
 
+    private HomeActivity mHomePageActivity;
+
     public SupportFragment() {
         // Required empty public constructor
     }
@@ -24,6 +26,8 @@ public class SupportFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_support, container, false);
+        mHomePageActivity = (HomeActivity) getActivity();
+        mHomePageActivity.getSupportActionBar().setTitle("Support");
         return view;
     }
 
