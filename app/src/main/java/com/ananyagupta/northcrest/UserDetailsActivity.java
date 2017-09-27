@@ -51,9 +51,9 @@ public class UserDetailsActivity extends AppCompatActivity {
         );
         mSp = getSharedPreferences("current_state",MODE_PRIVATE);
         mEdit = mSp.edit();
+
         mMyHelper = new MyHelper(UserDetailsActivity.this,"USERSDB",null,1);
         mdB = mMyHelper.getWritableDatabase();
-
         mDpIb = (ImageButton) findViewById(R.id.dp_ib);
         mDpIb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     }
 
     public void startHomeActivity(View view) {
-       try {
+      try {
            ContentValues cv = new ContentValues();
            cv.put("name", mNameEt.getText().toString());
            cv.put("accno", mAccNoEt.getText().toString());
@@ -80,9 +80,9 @@ public class UserDetailsActivity extends AppCompatActivity {
            cv.put("address", mAddressEt.getText().toString());
            cv.put("balance", Double.parseDouble(mInBalanceEt.getText().toString()));
            cv.put("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
-           cv.put("rewards",0);
+           cv.put("rewards",0.0);
            long id = mdB.insert("users",null,cv);
-           if(id==-1) throw new Exception();
+           if(id==-1) ;//throw new Exception();
            mEdit.putInt("state", 2);
            mEdit.apply();
            Intent intent = new Intent(UserDetailsActivity.this, HomeActivity.class);
