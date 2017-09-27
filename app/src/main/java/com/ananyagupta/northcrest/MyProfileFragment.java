@@ -69,16 +69,15 @@ public class MyProfileFragment extends Fragment {
         mPhoneTv = (TextView) view.findViewById(R.id.textView12);
         mDobTv = (TextView) view.findViewById(R.id.textView14);
         mAddressTv = (TextView) view.findViewById(R.id.textView16);
-        Toast.makeText(mHomePageActivity, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-        c.move(0);
+        if(c.moveToNext()) {
             mUserIdTv.setText("NCBID0000" + c.getString(0));
-            mNameTv.setText(c.getString(1));
-            mAccNoTv.setText(c.getString(2));
-            mPhoneTv.setText(c.getString(3));
+            mNameTv.setText(c.getString(2));
+            mAccNoTv.setText(c.getString(3));
+            mPhoneTv.setText(c.getString(5));
             mDobTv.setText(c.getString(4));
-            mAddressTv.setText(c.getString(5));
-            mEmailTv.setText(c.getString(7));
-
+            mAddressTv.setText(c.getString(6));
+            mEmailTv.setText(c.getString(1));
+        }
         return view;
     }
 }

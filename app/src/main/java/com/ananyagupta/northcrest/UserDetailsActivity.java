@@ -82,7 +82,7 @@ public class UserDetailsActivity extends AppCompatActivity {
            cv.put("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
            cv.put("rewards",0.0);
            long id = mdB.insert("users",null,cv);
-           if(id==-1) ;//throw new Exception();
+           if(id==-1)  throw new Exception();
            mEdit.putInt("state", 2);
            mEdit.apply();
            Intent intent = new Intent(UserDetailsActivity.this, HomeActivity.class);

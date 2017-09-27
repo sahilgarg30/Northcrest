@@ -2,6 +2,8 @@ package com.ananyagupta.northcrest;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -24,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -39,6 +43,9 @@ public class HomeActivity extends AppCompatActivity
     private SupportFragment mSupportFrag;
     private SharedPreferences mSp;
     private SharedPreferences.Editor mEdit;
+    private TextView navUsername;
+    private MyHelper mMyHelper;
+    private SQLiteDatabase mdB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,11 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        mMyHelper = new MyHelper(HomeActivity.this, "USERSDB", null, 1);
+        mdB = mMyHelper.getReadableDatabase();
+        String[] args = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+        Cursor c = mdB.query("users", null, "email = ?", args, null, null, null);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -57,6 +69,12 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        navUsername = (TextView) headerView.findViewById(R.id.username_nav_tv);
+        if(c.moveToNext())
+        navUsername.setText(c.getString(1));
+
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
         mBalanceFrag = new BalanceFragment();

@@ -2,6 +2,8 @@ package com.ananyagupta.northcrest;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mEmailLoginBtn;
     private SharedPreferences mSp;
     private SharedPreferences.Editor mEdit;
+    private MyHelper mMyHelper;
+    private SQLiteDatabase mdB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mSp = getSharedPreferences("current_state",MODE_PRIVATE);
         mEdit = mSp.edit();
+
+        mMyHelper = new MyHelper(MainActivity.this,"USERSDB",null,1);
+        mdB = mMyHelper.getReadableDatabase();
+
         int state = mSp.getInt("state",0);
         Intent intent;
         switch(state){
@@ -152,11 +160,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this,UserDetailsActivity.class);
-                            startActivity(intent);
+                            Cursor c = mdB.query("users", null,null,null, null, null, null);
+                            int check=0;
+                            while(c.moveToNext()){
+                                if(c.getString(1).equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                                {
+                                    check=1;
+                                    break;
+                                }
+                            }
+                            if(check==0) {
+                                Intent intent = new Intent(MainActivity.this, UserDetailsActivity.class);
+                                startActivity(intent);
+                                mEdit.putInt("state",1);
+                                mEdit.apply();
+                            }
+                            else{
+                                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                                mEdit.putInt("state",2);
+                                mEdit.apply();
+                            }
                             Toast.makeText(MainActivity.this, "Signed in with google!", Toast.LENGTH_SHORT).show();
-                            mEdit.putInt("state",1);
-                            mEdit.apply();
                             finish();
                         }
                     }
