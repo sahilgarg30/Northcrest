@@ -78,6 +78,7 @@
             android:id="@+id/add_trans_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:onClick="handleTransaction"
             android:backgroundTint="@color/colorAccent"
             android:padding="16dp"
             android:layout_marginLeft="16dp"
