@@ -65,14 +65,6 @@ public class AddTransactionActivity extends AppCompatActivity {
         if(c.moveToNext())
         {
             rewards = c.getDouble(8);
-            if(customer.equals(Deal))
-            {
-                rewards += 1.5*amount/100;
-            }
-            else
-            {
-                rewards+=amount/100;
-            }
             bal = c.getDouble(7);
             if(mDebitBtn.isChecked())
             {
@@ -80,6 +72,14 @@ public class AddTransactionActivity extends AppCompatActivity {
                 if(bal<0){
                     Toast.makeText(AddTransactionActivity.this, "Not enough money to make trasanction.", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                if(customer.equals(Deal))
+                {
+                    rewards += 1.5*amount/100;
+                }
+                else
+                {
+                    rewards+=amount/100;
                 }
             }
             else
