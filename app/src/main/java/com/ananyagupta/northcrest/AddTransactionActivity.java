@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,32 +60,40 @@ public class AddTransactionActivity extends AppCompatActivity {
     public void handleTransaction(View view) {
         amount = Double.parseDouble(mAmountEt.getText().toString());
         String customer = mCustomerEt.getText().toString();
-        if(customer.equals(Deal))
-        {
-            rewards = 1.5*amount/100;
-        }
-        else
-        {
-            rewards=amount/100;
-        }
         String[] args = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
         Cursor c = mdB.query("users", null, "email = ?", args, null, null, null);
         if(c.moveToNext())
         {
-            bal = Double.parseDouble(c.getString(7));
+            rewards = c.getDouble(8);
+            if(customer.equals(Deal))
+            {
+                rewards += 1.5*amount/100;
+            }
+            else
+            {
+                rewards+=amount/100;
+            }
+            bal = c.getDouble(7);
             if(mDebitBtn.isChecked())
             {
                 bal=bal-amount;
+                if(bal<0){
+                    Toast.makeText(AddTransactionActivity.this, "Not enough money to make trasanction.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
             else
             {
                 bal=bal+amount;
+                rewards+=0;
             }
         }
+
         ContentValues cv= new ContentValues();
         cv.put("balance",bal);
         cv.put("rewards",rewards);
-        mdB.update("users",cv,"email="+c.getString(1),null);
-
+        mdB.update("users",cv,"email = ?",args);
+        Toast.makeText(AddTransactionActivity.this, "Transaction Successfully made!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
