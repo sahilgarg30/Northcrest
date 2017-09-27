@@ -1,6 +1,7 @@
 package com.ananyagupta.northcrest;
 
 import android.*;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -31,6 +35,12 @@ public class UserDetailsActivity extends AppCompatActivity {
     private SQLiteDatabase mdB;
     private ImageButton mDpIb;
     private Bitmap photo;
+    private EditText mInBalanceEt;
+    private EditText mNameEt;
+    private EditText mAccNoEt;
+    private EditText mDobEt;
+    private EditText mAddressEt;
+    private EditText mPhoneEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +61,36 @@ public class UserDetailsActivity extends AppCompatActivity {
                 selectImage();
             }
         });
+
+        mNameEt = (EditText)findViewById(R.id.signup_name);
+        mAccNoEt = (EditText)findViewById(R.id.signup_account_number);
+        mDobEt = (EditText)findViewById(R.id.dob_et);
+        mPhoneEt = (EditText)findViewById(R.id.user_details_phone);
+        mAddressEt = (EditText)findViewById(R.id.address_tv);
+        mInBalanceEt = (EditText)findViewById(R.id.initial_balance);
     }
 
     public void startHomeActivity(View view) {
-        mEdit.putInt("state",2);
-        mEdit.apply();
-        Intent intent = new Intent(UserDetailsActivity.this,HomeActivity.class);
-        startActivity(intent);
-        finish();
+       try {
+           ContentValues cv = new ContentValues();
+           cv.put("name", mNameEt.getText().toString());
+           cv.put("accno", mAccNoEt.getText().toString());
+           cv.put("phone", mPhoneEt.getText().toString());
+           cv.put("dob", mDobEt.getText().toString());
+           cv.put("address", mAddressEt.getText().toString());
+           cv.put("balance", Double.parseDouble(mInBalanceEt.getText().toString()));
+           cv.put("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
+           cv.put("rewards",0);
+           long id = mdB.insert("users",null,cv);
+           if(id==-1) throw new Exception();
+           mEdit.putInt("state", 2);
+           mEdit.apply();
+           Intent intent = new Intent(UserDetailsActivity.this, HomeActivity.class);
+           startActivity(intent);
+           finish();
+       }catch (Exception e){
+           Toast.makeText(UserDetailsActivity.this, "Invalid Input.", Toast.LENGTH_SHORT).show();
+       }
     }
 
     public void capture() {
