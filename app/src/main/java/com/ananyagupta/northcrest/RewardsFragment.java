@@ -27,7 +27,8 @@ public class RewardsFragment extends Fragment {
     private MyHelper mMyHelper;
     private SQLiteDatabase mdB;
     private TextView mRewardsTv;
-    private Double balance;
+    private double balance;
+    private double rewards;
 
 
     public RewardsFragment() {
@@ -48,11 +49,20 @@ public class RewardsFragment extends Fragment {
         Cursor c = mdB.query("users",null,"email=?",new String[]{FirebaseAuth.getInstance().getCurrentUser().getEmail()},null,null,null);
 
         if(c.moveToNext()){
+            rewards = c.getDouble(8);
         mRewardsTv.setText(String.valueOf(c.getDouble(8)));
         balance  = c.getDouble(7);}
         mRedeemPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                balance+=rewards;
+                rewards=0;
+                ContentValues cv= new ContentValues();
+                cv.put("balance",balance);
+                cv.put("rewards",rewards);
+                String[] args = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+                mdB.update("users",cv,"email = ?",args);
+                mRewardsTv.setText(String.valueOf(rewards));
                 Toast.makeText(mHomePageActivity, "Your balance is updated!", Toast.LENGTH_LONG).show();
             }
         });

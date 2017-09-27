@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -24,8 +26,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import static android.R.attr.bitmap;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
@@ -41,6 +46,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     private EditText mDobEt;
     private EditText mAddressEt;
     private EditText mPhoneEt;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,8 @@ public class UserDetailsActivity extends AppCompatActivity {
         mPhoneEt = (EditText)findViewById(R.id.user_details_phone);
         mAddressEt = (EditText)findViewById(R.id.address_tv);
         mInBalanceEt = (EditText)findViewById(R.id.initial_balance);
+        imageButton = (ImageButton) findViewById(R.id.dp_ib);
+
     }
 
     public void startHomeActivity(View view) {
@@ -159,7 +167,21 @@ public class UserDetailsActivity extends AppCompatActivity {
             {
                 Bundle extras = data.getExtras();
                 photo = (Bitmap) extras.get("data");
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo.compress(Bitmap.CompressFormat.PNG, 0, stream);
                 mDpIb.setImageBitmap(photo);
+                try {
+                    byte[] image = stream.toByteArray();
+                    ContentValues cv = new ContentValues();
+                    cv.put("dp", image);
+                    long id = mdB.insert("users", null, cv);
+                    if (id == -1) throw new Exception();
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(this, "Unable to insert. Try again later.", Toast.LENGTH_LONG).show();
+                    mDpIb.setImageResource(R.drawable.user_icon);
+                }
             }
             else if(resultCode==RESULT_CANCELED)
             {
@@ -178,7 +200,21 @@ public class UserDetailsActivity extends AppCompatActivity {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.PNG, 0, stream);
                     mDpIb.setImageBitmap(selectedImage);
+                    try {
+                        byte[] image = stream.toByteArray();
+                        ContentValues cv = new ContentValues();
+                        cv.put("dp", image);
+                        long id = mdB.insert("users", null, cv);
+                        if (id == -1) throw new Exception();
+                    }
+                    catch(Exception e)
+                    {
+                        Toast.makeText(this, "Unable to insert. Try again later.", Toast.LENGTH_LONG).show();
+                        mDpIb.setImageResource(R.drawable.user_icon);
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

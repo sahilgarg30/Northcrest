@@ -75,7 +75,7 @@ public class AddTransactionActivity extends AppCompatActivity {
                 }
                 if(customer.equals(Deal))
                 {
-                    rewards += 1.5*amount/100;
+                    rewards += 1.25*amount/100;
                 }
                 else
                 {

@@ -4,6 +4,8 @@ package com.ananyagupta.northcrest;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +38,7 @@ public class MyProfileFragment extends Fragment {
     private TextView mPhoneTv;
     private TextView mDobTv;
     private TextView mAddressTv;
+    private ImageView mDpIv;
 
     public MyProfileFragment() {
         // Required empty public constructor
@@ -69,6 +73,7 @@ public class MyProfileFragment extends Fragment {
         mPhoneTv = (TextView) view.findViewById(R.id.textView12);
         mDobTv = (TextView) view.findViewById(R.id.textView14);
         mAddressTv = (TextView) view.findViewById(R.id.textView16);
+        mDpIv = (ImageView) view.findViewById(R.id.imageView2);
         if(c.moveToNext()) {
             mUserIdTv.setText("NCBID0000" + c.getString(0));
             mNameTv.setText(c.getString(2));
@@ -77,6 +82,16 @@ public class MyProfileFragment extends Fragment {
             mDobTv.setText(c.getString(4));
             mAddressTv.setText(c.getString(6));
             mEmailTv.setText(c.getString(1));
+            byte[] image = c.getBlob(9);
+            try {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+                mDpIv.setImageBitmap(bitmap);
+            }
+            catch(Exception e)
+            {
+                Toast.makeText(mHomePageActivity, "Unable to put image", Toast.LENGTH_SHORT).show();
+            }
+
         }
         return view;
     }
