@@ -70,7 +70,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             {
                 bal=bal-amount;
                 if(bal<0){
-                    Toast.makeText(AddTransactionActivity.this, "Not enough money to make trasanction.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddTransactionActivity.this, "Not enough money to make transaction.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(customer.equals(Deal))
