@@ -218,10 +218,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            mEdit.putInt("state",2);
-                            mEdit.apply();
-                            Intent intent = new Intent(MainActivity.this,HomeActivity.class);
-                            startActivity(intent);
+                            Cursor c = mdB.query("users", null,null,null, null, null, null);
+                            int check=0;
+                            while(c.moveToNext()){
+                                if(c.getString(1).equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                                {
+                                    check=1;
+                                    break;
+                                }
+                            }
+                            if(check==0) {
+                                Intent intent = new Intent(MainActivity.this, UserDetailsActivity.class);
+                                startActivity(intent);
+                                mEdit.putInt("state",1);
+                                mEdit.apply();
+                            }
+                            else{
+                                Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                                mEdit.putInt("state",2);
+                                mEdit.apply();
+                            }
                             Toast.makeText(MainActivity.this, "Signed in with email!", Toast.LENGTH_SHORT).show();
                             finish();
 
