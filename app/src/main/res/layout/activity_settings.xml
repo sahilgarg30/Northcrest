@@ -46,16 +46,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <EditText
-        android:id="@+id/editText6"
+        android:id="@+id/balance_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Amount in Dollars"
-        android:inputType="phone" />
+        android:inputType="number" />
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/update_balance_btn"
+        android:onClick="updateBalance"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:backgroundTint="@color/colorAccent"
@@ -79,7 +80,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/name_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -93,26 +94,28 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/phone_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:hint="Phone Number"
+        android:maxLength="10"
         android:inputType="phone" />
+
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/dob_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:hint="Date of Birth"
         android:ems="10"
+        android:hint="Date of Birth"
         android:inputType="date" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/address_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -123,6 +126,7 @@
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/save_changes_btn"
+        android:onClick="saveChanges"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:backgroundTint="@color/colorAccent"

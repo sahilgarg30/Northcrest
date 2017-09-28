@@ -64,8 +64,6 @@ public class MyProfileFragment extends Fragment {
             }
         });
 
-        String[] args = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
-        Cursor c = mdB.query("users", null, "email = ?", args, null, null, null);
         mNameTv = (TextView) view.findViewById(R.id.textView7);
         mUserIdTv = (TextView) view.findViewById(R.id.textView8);
         mAccNoTv = (TextView) view.findViewById(R.id.textView5);
@@ -74,6 +72,14 @@ public class MyProfileFragment extends Fragment {
         mDobTv = (TextView) view.findViewById(R.id.textView14);
         mAddressTv = (TextView) view.findViewById(R.id.textView16);
         mDpIv = (ImageView) view.findViewById(R.id.imageView2);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        String[] args = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+        Cursor c = mdB.query("users", null, "email = ?", args, null, null, null);
+        super.onStart();
         if(c.moveToNext()) {
             mUserIdTv.setText("NCBID0000" + c.getString(0));
             mNameTv.setText(c.getString(2));
@@ -89,10 +95,9 @@ public class MyProfileFragment extends Fragment {
             }
             catch(Exception e)
             {
-                Toast.makeText(mHomePageActivity, "Unable to put image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mHomePageActivity, "Unable to show profile picture.", Toast.LENGTH_SHORT).show();
             }
 
         }
-        return view;
     }
 }

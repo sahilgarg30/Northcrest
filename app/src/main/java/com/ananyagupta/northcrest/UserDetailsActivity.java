@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import static android.R.attr.bitmap;
+import static android.R.attr.id;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
@@ -47,6 +49,7 @@ public class UserDetailsActivity extends AppCompatActivity {
     private EditText mAddressEt;
     private EditText mPhoneEt;
     private ImageButton imageButton;
+    private byte[] image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         mInBalanceEt = (EditText)findViewById(R.id.initial_balance);
         imageButton = (ImageButton) findViewById(R.id.dp_ib);
 
+        setEmptyDp();
     }
 
     public void startHomeActivity(View view) {
@@ -89,6 +93,7 @@ public class UserDetailsActivity extends AppCompatActivity {
            cv.put("balance", Double.parseDouble(mInBalanceEt.getText().toString()));
            cv.put("email", FirebaseAuth.getInstance().getCurrentUser().getEmail());
            cv.put("rewards",0.0);
+           cv.put("dp", image);
            long id = mdB.insert("users",null,cv);
            if(id==-1)  throw new Exception();
            mEdit.putInt("state", 2);
@@ -138,7 +143,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         startActivityForResult(intent2, 8);
     }
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
+        final CharSequence[] items = { "Take Photo", "Choose from Library","Remove profile picture",
                 "Cancel" };
         AlertDialog.Builder builder = new AlertDialog.Builder(UserDetailsActivity.this);
         builder.setTitle("Add Profile Photo!").setIcon(R.drawable.ic_camera);
@@ -150,14 +155,30 @@ public class UserDetailsActivity extends AppCompatActivity {
                 } else if (items[item].equals("Choose from Library")) {
                     gallery();
                 } else if (items[item].equals("Cancel")) {
-                    mDpIb.setImageResource(R.drawable.user_icon);
                     dialog.dismiss();
+                }else if(items[item].equals("Remove profile picture")){
+                    setEmptyDp();
                 }
             }
         });
         builder.show();
     }
 
+    private void setEmptyDp(){
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.user_icon);
+        photo = ((BitmapDrawable)drawable).getBitmap();
+        mDpIb.setImageResource(R.drawable.user_icon);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        try {
+            image = stream.toByteArray();
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(this, "Unable to insert image. Try again later.", Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -171,16 +192,11 @@ public class UserDetailsActivity extends AppCompatActivity {
                 photo.compress(Bitmap.CompressFormat.PNG, 0, stream);
                 mDpIb.setImageBitmap(photo);
                 try {
-                    byte[] image = stream.toByteArray();
-                    ContentValues cv = new ContentValues();
-                    cv.put("dp", image);
-                    long id = mdB.insert("users", null, cv);
-                    if (id == -1) throw new Exception();
+                    image = stream.toByteArray();
                 }
                 catch(Exception e)
                 {
-                    Toast.makeText(this, "Unable to insert. Try again later.", Toast.LENGTH_LONG).show();
-                    mDpIb.setImageResource(R.drawable.user_icon);
+                    Toast.makeText(this, "Unable to insert image. Try again later.", Toast.LENGTH_LONG).show();
                 }
             }
             else if(resultCode==RESULT_CANCELED)
@@ -204,16 +220,11 @@ public class UserDetailsActivity extends AppCompatActivity {
                     selectedImage.compress(Bitmap.CompressFormat.PNG, 0, stream);
                     mDpIb.setImageBitmap(selectedImage);
                     try {
-                        byte[] image = stream.toByteArray();
-                        ContentValues cv = new ContentValues();
-                        cv.put("dp", image);
-                        long id = mdB.insert("users", null, cv);
-                        if (id == -1) throw new Exception();
+                        image = stream.toByteArray();
                     }
                     catch(Exception e)
                     {
-                        Toast.makeText(this, "Unable to insert. Try again later.", Toast.LENGTH_LONG).show();
-                        mDpIb.setImageResource(R.drawable.user_icon);
+                        Toast.makeText(this, "Unable to insert image. Try again later.", Toast.LENGTH_LONG).show();
                     }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -226,5 +237,4 @@ public class UserDetailsActivity extends AppCompatActivity {
             }
         }
     }
-
 }

@@ -1,14 +1,17 @@
 package com.ananyagupta.northcrest;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.ActionMode;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -132,7 +135,34 @@ public class HomeActivity extends AppCompatActivity
             startActivity(intent);
             return true;
         }
-
+        else if(id == R.id.action_delete_transaction) {
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(HomeActivity.this, android.R.style.Theme_Material_Light_Dialog_NoActionBar);
+            } else {
+                builder = new AlertDialog.Builder(HomeActivity.this);
+            }
+            builder.setTitle("Delete all transactions ?")
+                    .setMessage("Are you sure you want to delete all transactions ? This will not affect your balance or rewards.")
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String args[] = {FirebaseAuth.getInstance().getCurrentUser().getEmail()};
+                            mdB.delete("trans","email = ?",args);
+                            if(mHistoryFrag.isResumed())
+                                mHistoryFrag.changeData();
+                            Toast.makeText(HomeActivity.this, "All transactions successfully deleted.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                            dialog.cancel();
+                        }
+                    })
+                    .setIcon(R.drawable.ic_warning_black)
+                    .show();
+        }
         return super.onOptionsItemSelected(item);
     }
 

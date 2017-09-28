@@ -69,5 +69,4 @@ public class RewardsFragment extends Fragment {
         mHomePageActivity.getSupportActionBar().setTitle("Rewards");
         return view;
     }
-
 }

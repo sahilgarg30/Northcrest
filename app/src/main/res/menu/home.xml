@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_delete_transaction"
+        android:orderInCategory="2"
+        android:title="Delete transactions"
+        android:icon="@android:drawable/ic_delete"
+        app:showAsAction="never"
+        ></item>
 </menu>

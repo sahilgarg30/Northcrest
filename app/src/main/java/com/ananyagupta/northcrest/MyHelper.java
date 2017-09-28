@@ -16,10 +16,11 @@ public class MyHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE users(_id integer primary key, email text, name text, accno text, dob text, phone text, address text,balance real, rewards real, dp blob);");
+
+        db.execSQL("CREATE TABLE trans(_id integer primary key, email text, customer text, amount text, type text);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
     }
 }
