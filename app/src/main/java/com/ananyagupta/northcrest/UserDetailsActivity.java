@@ -33,6 +33,7 @@ import java.io.InputStream;
 
 import static android.R.attr.bitmap;
 import static android.R.attr.id;
+import static android.R.attr.navigationIcon;
 
 public class UserDetailsActivity extends AppCompatActivity {
 
@@ -80,6 +81,7 @@ public class UserDetailsActivity extends AppCompatActivity {
         imageButton = (ImageButton) findViewById(R.id.dp_ib);
 
         setEmptyDp();
+
     }
 
     public void startHomeActivity(View view) {

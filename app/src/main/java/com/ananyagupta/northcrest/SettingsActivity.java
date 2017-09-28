@@ -229,6 +229,7 @@ public class SettingsActivity extends AppCompatActivity {
                     final Uri imageUri = data.getData();
                     final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                     final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    photo=selectedImage;
                     mDpIb.setImageBitmap(selectedImage);
                     saveImage();
                     finish();
