@@ -45,7 +45,7 @@ public class HistoryAdapter extends CursorAdapter {
         if(cost.isEmpty())
             costTv.setText("Rs. 0");
         else
-            costTv.setText("Rs. "+cost);
+            costTv.setText(""+cost);
 
         if(type.isEmpty())
             typeTv.setText("Unknown type");
